@@ -1,6 +1,6 @@
 {
-  "message": "fix: LEAP-1490: Fix AudioUltra working with relations and comments (#6494)",
-  "commit": "6c2e4ea21d7ccc9c6b5c45a97aceed33cdef12c8",
-  "date": "2024-10-21T14:28:45.000Z",
+  "message": "fix: LEAP-1579: LEAP-1576: LEAP-1582: Improve comment icons usability (#6546)",
+  "commit": "094e5d7ab9df76c443a970db887798b7a48e6db8",
+  "date": "2024-10-24T14:06:52.000Z",
   "branch": "develop"
 }
