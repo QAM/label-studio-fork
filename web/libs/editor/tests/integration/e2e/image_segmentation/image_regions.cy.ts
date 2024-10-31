@@ -44,6 +44,7 @@ const task = {
           type: "rectanglelabels",
           origin: "manual",
           value: {
+            closed: true,
             height: 10.458911419423693,
             rotation: 0,
             width: 12.4,
@@ -60,6 +61,7 @@ const task = {
           type: "rectanglelabels",
           origin: "manual",
           value: {
+            closed: true,
             height: 10.458911419423693,
             rotation: 0,
             width: 12.4,
@@ -76,6 +78,7 @@ const task = {
           type: "rectanglelabels",
           origin: "manual",
           value: {
+            closed: true,
             height: 10.458911419423693,
             rotation: 0,
             width: 12.4,
@@ -92,6 +95,7 @@ const task = {
           type: "rectanglelabels",
           origin: "manual",
           value: {
+            closed: true,
             height: 10.458911419423693,
             rotation: 0,
             width: 12.4,
