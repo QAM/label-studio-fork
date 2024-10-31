@@ -23,6 +23,7 @@ const result = [
     original_height: 4542,
     image_rotation: 0,
     value: {
+      closed: true,
       points: [
         [27.199999999999996, 41.246290801186944],
         [25.73333333333333, 70.62314540059347],
@@ -42,6 +43,7 @@ const result = [
     original_height: 4542,
     image_rotation: 0,
     value: {
+      closed: true,
       points: [
         [60.788381742738586, 76.21247113163972],
         [65.87136929460583, 52.19399538106235],
