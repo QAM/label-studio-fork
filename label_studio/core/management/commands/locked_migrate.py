@@ -29,16 +29,19 @@ class Command(MigrateCommand):
     def handle(self, *args, **options):
         lock_id = options.pop('migrate_lock_id')
 
-        # Use a new, separate database connection to hold the pg_advisory_xact_lock.
+        # Create a separate database connection to hold the lock
         separate_lock_connection = connections.create_connection('default')
         connections[LOCKED_MIGRATE_CMD_CONNECTION_ALIAS] = separate_lock_connection
         try:
+            # Use a transaction to hold the lock for the duration of the migration
             with transaction.atomic(using=LOCKED_MIGRATE_CMD_CONNECTION_ALIAS):
+                # Attempt to acquire the lock with retries
                 self.acquire_lock_with_retry(separate_lock_connection, lock_id)
+                # Run the standard Django migration once lock is acquired
                 super().handle(*args, **options)
             logger.info('Migration complete, the migration lock has now been released.')
         finally:
-            # Ensure the connection is closed as we created it ourselves
+            # Ensure the lock connection is closed to free resources
             separate_lock_connection.close()
 
     def acquire_lock_with_retry(self, lock_connection, lock_id):
