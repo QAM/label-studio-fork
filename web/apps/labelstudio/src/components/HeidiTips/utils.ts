@@ -1,5 +1,5 @@
-import { TipsCollection } from "./content";
-import type { Tip } from "./types";
+import { defaultTipsCollection } from "./content";
+import type { Tip, TipsCollection } from "./types";
 
 const STORE_KEY = "heidi_ignored_tips";
 
@@ -7,10 +7,34 @@ function getKey(collection: string) {
   return `${STORE_KEY}:${collection}`;
 }
 
-export function getRandomTip(collection: keyof typeof TipsCollection): Tip | null {
+export const loadLiveTipsCollection = async () => {
+  try {
+    // Fetch from github raw liveContent.json
+    const response = await fetch("https://raw.githubusercontent.com/HumanSignal/label-studio/main/web/apps/labelstudio/src/components/HeidiTips/liveContent.json");
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    }
+  } catch (error) {
+    console.warn("Failed to load live tips collection defaulting to local content", error);
+  }
+
+  return defaultTipsCollection;
+};
+
+export let tipsCollection: TipsCollection;
+
+export const initTipsCollection = async () => {
+  tipsCollection ??= await loadLiveTipsCollection();
+};
+
+
+export async function getRandomTip(collection: keyof TipsCollection): Promise<Tip | null> {
+  await initTipsCollection();
+
   if (isTipDismissed(collection)) return null;
 
-  const tips = TipsCollection[collection];
+  const tips = tipsCollection[collection];
 
   const index = Math.floor(Math.random() * tips.length);
 
